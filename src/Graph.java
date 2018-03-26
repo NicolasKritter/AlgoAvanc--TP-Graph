@@ -103,17 +103,13 @@ public abstract class Graph<V extends Comparable<V>> {
 		List<V> visited =  new ArrayList<V>();
 		
 		for (V v:g.vertices()) {
-			
 			if (!visited.contains(v)) {	
-				
 			List<V> out = new ArrayList<V>();
 			dfs(g,v,out);
 			List<V> connected = new ArrayList<V>();
 			connected.add(v);
 			visited.add(v);
-			
-			for (V neighbour: out) {
-				
+			for (V neighbour: out) {				
 				if (neighbour!= v) {
 					List<V> outNeighbour = new ArrayList<V>();
 					dfs(g,neighbour,outNeighbour);
@@ -121,16 +117,11 @@ public abstract class Graph<V extends Comparable<V>> {
 						connected.add(neighbour);
 						visited.add(neighbour);
 					}
-				}
-				
+				}	
 			}
-			
 			connectedComponent.add(connected);
-			
-			}
-			
-		}
-		
+			}	
+		}		
 		return connectedComponent.size();
 	}
 	
@@ -172,7 +163,6 @@ public abstract class Graph<V extends Comparable<V>> {
 			 }
 		 }
 		
-		
 	}
 	
 	
@@ -181,6 +171,26 @@ public abstract class Graph<V extends Comparable<V>> {
 	 * @param g
 	 * @return
 	 */
+	
+	public static<V extends Comparable<V>>  List<V> bfs(Graph<V> g) {
+		List<V> vertices = g.vertices();
+		List<V> out = new ArrayList<V>();
+		while (out.size()!=vertices.size()) {
+			V start = vertices.get(0);
+			for (V v :vertices) {
+				if (!out.contains(v)) {
+					start = v;
+					break;
+				}
+			}
+			out.addAll(bfs(g,start));
+		}
+		
+		return out;
+		
+	}
+
+
 	public static<V extends Comparable<V>> List<V> bfs(Graph<V> g, V start) {
 		List<V> output = new ArrayList<V>();
 		List<V> queue = new LinkedList<V>();
@@ -190,15 +200,13 @@ public abstract class Graph<V extends Comparable<V>> {
 		queue.add(start);
 		while(queue.size()>0) {
 			V v = queue.get(0);
+			System.out.print(v.toString());
 			queue.remove(0);
 			output.add(v);
-			
 			for (V adjacent :g.outNeighbors(v)) {
 				if (visited.get(adjacent)==null) {
-										
 					visited.put(adjacent,adjacent);
 					queue.add(adjacent);
-					
 				}
 			}
 		}

@@ -8,9 +8,16 @@ public class Main {
 
 		//System.out.println(Graph.dfs(diGraph));
 //		System.out.println(Graph.cc(diGraph));
-		System.out.println(Graph.bfs(diGraph,diGraph.vertices().get(0)));
+		BFSShortestPaths<Integer> shortestath1=new BFSShortestPaths<Integer>(diGraph, 2);
+		for (int  ele:shortestath1.getPrevious()){
+			System.out.print(ele);
+		}
+		System.out.println(shortestath1.hasPathTo(1));
+		shortestath1.printSP(7);
 		//System.out.println(diGraph.isConnected());
 
 	}
+
+	
 
 }

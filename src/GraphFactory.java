@@ -22,10 +22,11 @@ public class GraphFactory {
 		WDigraph g = new WDigraph();
 		try(Scanner scan = new Scanner(FileSystems.getDefault().getPath(path))){
 			while(scan.hasNextInt()) {
-				int u = scan.nextInt(),
-					v = scan.nextInt();
+				int f = scan.nextInt(),
+					t = scan.nextInt();
 				double w = scan.nextDouble();
-				g.addEdge(u, v,w);
+				DirectedEdge edge = new DirectedEdge(f,t,w);
+				g.addEdge(edge);
 			}	
 		} catch (IOException e) {
 			e.printStackTrace();

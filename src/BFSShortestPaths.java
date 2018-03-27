@@ -8,6 +8,7 @@ public class BFSShortestPaths <V extends Comparable<V>>{
 	boolean[] marked;
 	int [] previous;
 	int[] distance;
+	
 	public boolean[] getMarked() {
 		return marked;
 	}
@@ -59,19 +60,36 @@ public class BFSShortestPaths <V extends Comparable<V>>{
 		return (distance[v-1]);
 	}
 	
-	public void printSP(int v){
-		if (!marked[v-1]){
-			System.out.print(v+"Is not accesible by s");		
-		}
+	public List<Integer> shortestPath(int v) {
 		List<Integer> path = new ArrayList<Integer>();
 		int tpm = v-1;
 		while(tpm!=-1){
-			System.out.println(tpm +" "+previous[tpm]);
+			//System.out.println(tpm +" "+previous[tpm]);
 			path.add(tpm+1);
 			tpm=previous[tpm];
 		}
-		for (int  ele:path){
-			System.out.print(ele);
+		return path;
+	}
+	public int excentricity(Digraph g) {
+		int max = 0;
+		for (int element : g.vertices()) {
+			int size = shortestPath(element).size();
+			if (max<shortestPath(element).size()) {
+				max = size;
+			}
 		}
+		return max;
+	}
+	
+
+	
+	public void printSP(int v){
+		if (!marked[v-1]){
+			System.out.println(v+" Is not accesible by s" );
+			return;
+		}
+
+
+			System.out.print(shortestPath(v));
 	}
 }
